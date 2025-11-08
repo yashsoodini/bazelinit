@@ -14,9 +14,10 @@ import (
 var rootCmd = &cobra.Command{
 	Use:   "bazelinit",
 	Short: "bazelinit is a CLI application for initializing code repos with bazel.",
-	Long: `bazelinit is a CLI application for initializing code repos with bazel. It initializes
-	a git repository in the current directory, adds bazel and gazelle configuration for the specified
-	language, and adds all bazel files to .gitignore.`,
+	Long: `
+bazelinit is a CLI application for initializing code repos with bazel. It initializes
+a git repository in the current directory, adds bazel and gazelle configuration for the
+specified language, and adds all bazel files to .gitignore.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("bazelinit is a work in-progress...")
 	},
