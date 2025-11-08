@@ -1,0 +1,15 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go",
+    srcs = ["setup.go"],
+    importpath = "github.com/yashsoodini/bazelinit/lang/go",
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "golang",
+    srcs = ["setup.go"],
+    importpath = "github.com/yashsoodini/bazelinit/lang/golang",
+    visibility = ["//visibility:public"],
+)
