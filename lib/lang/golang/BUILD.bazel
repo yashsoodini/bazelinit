@@ -10,6 +10,6 @@ go_library(
 go_library(
     name = "golang",
     srcs = ["setup.go"],
-    importpath = "github.com/yashsoodini/bazelinit/lang/golang",
+    importpath = "github.com/yashsoodini/bazelinit/lib/lang/golang",
     visibility = ["//visibility:public"],
 )

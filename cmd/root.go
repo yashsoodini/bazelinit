@@ -4,12 +4,11 @@ Copyright © 2025 Yash Soodini yash@soodini.com>
 package cmd
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/spf13/cobra"
-	"github.com/yashsoodini/bazelinit/lang/cpp"
-	"github.com/yashsoodini/bazelinit/lang/golang"
+	"github.com/yashsoodini/bazelinit/lib/lang/cpp"
+	"github.com/yashsoodini/bazelinit/lib/lang/golang"
 )
 
 // rootCmd represents the root bazelinit command.
@@ -20,27 +19,30 @@ var rootCmd = &cobra.Command{
 bazelinit is a CLI application for initializing code repos with bazel. It initializes
 a git repository in the current directory, adds bazel and gazelle configuration for the
 specified language, and adds all bazel files to .gitignore.`,
-	PreRunE: func(cmd *cobra.Command, args []string) error {
-		lang := cmd.Flag("lang").Value.String()
-		switch lang {
-		case "go", "c++":
-		default:
-			return fmt.Errorf("invalid --lang: %s (want go|c++)", lang)
-		}
-		return nil
-	},
+}
+
+// golangCmd represents the golang subcommand.
+var golangCmd = &cobra.Command{
+	Use:   "go",
+	Short: "Initializes a Go repository with Bazel.",
+	Long: `
+golang is a subcommand for bazelinit that initializes a Go repository with Bazel.
+It sets up the necessary Bazel and Gazelle configurations for Go, and adds all
+Bazel-related files to .gitignore.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		lang := cmd.Flag("lang").Value.String()
-		switch lang {
-		case "go":
-			golang.Setup()
-		case "c++":
-			cpp.Setup()
-		default:
-			// This should never happen due to PreRunE validation.
-			return fmt.Errorf("invalid --lang: %s (want go|c++)", lang)
-		}
-		return nil
+		return golang.Setup()
+	},
+}
+
+// cppCmd represents the cpp subcommand.
+var cppCmd = &cobra.Command{
+	Use:   "c++",
+	Short: "Initializes a C++ repository with Bazel.",
+	Long: `c++ is a subcommand for bazelinit that initializes a C++ repository with Bazel.
+It sets up the necessary Bazel configurations for C++, and adds all
+Bazel-related files to .gitignore.`,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return cpp.Setup()
 	},
 }
 
@@ -53,5 +55,7 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringP("lang", "l", "go", "The programming language used in the repository.")
+	golangCmd.Flags().StringP("module", "m", "", "The name of the Go module.")
+	rootCmd.AddCommand(golangCmd)
+	rootCmd.AddCommand(cppCmd)
 }

@@ -6,8 +6,8 @@ go_library(
     importpath = "github.com/yashsoodini/bazelinit/cmd",
     visibility = ["//visibility:public"],
     deps = [
-        "//lang/cpp",
-        "//lang/golang",
+        "//lib/lang/cpp",
+        "//lib/lang/golang",
         "@com_github_spf13_cobra//:cobra",
     ],
 )
