@@ -1,4 +1,4 @@
-load("@rules_go//go:def.bzl", "go_library")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
 
 go_library(
     name = "go",
@@ -9,7 +9,24 @@ go_library(
 
 go_library(
     name = "golang",
-    srcs = ["setup.go"],
+    srcs = [
+        "setup.go",
+        "template.go",
+        "validate.go",
+    ],
     importpath = "github.com/yashsoodini/bazelinit/lib/lang/golang",
     visibility = ["//visibility:public"],
+    deps = [
+        "//vendor/github.com/spf13/cobra",
+        "//vendor/golang.org/x/mod/module",
+    ],
+)
+
+go_test(
+    name = "golang_test",
+    srcs = ["validate_test.go"],
+    embed = [":golang"],
+    deps = [
+        "//vendor/github.com/spf13/cobra",
+    ],
 )

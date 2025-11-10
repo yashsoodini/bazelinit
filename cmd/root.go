@@ -29,6 +29,7 @@ var golangCmd = &cobra.Command{
 golang is a subcommand for bazelinit that initializes a Go repository with Bazel.
 It sets up the necessary Bazel and Gazelle configurations for Go, and adds all
 Bazel-related files to .gitignore.`,
+	PreRunE: golang.ValidateCommand,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return golang.Setup()
 	},
@@ -55,7 +56,7 @@ func Execute() {
 }
 
 func init() {
-	golangCmd.Flags().StringP("module", "m", "", "The name of the Go module.")
+	golangCmd.Flags().String("module_path", "", "The module path of the Go repository (e.g. github.com/foo/bar)")
 	rootCmd.AddCommand(golangCmd)
 	rootCmd.AddCommand(cppCmd)
 }
