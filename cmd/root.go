@@ -11,6 +11,8 @@ import (
 	"github.com/yashsoodini/bazelinit/lib/lang/golang"
 )
 
+var workingDirectory string
+
 // rootCmd represents the root bazelinit command.
 var rootCmd = &cobra.Command{
 	Use:   "bazelinit",
@@ -31,7 +33,8 @@ It sets up the necessary Bazel and Gazelle configurations for Go, and adds all
 Bazel-related files to .gitignore.`,
 	PreRunE: golang.ValidateCommand,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		return golang.Setup()
+		modulePath := cmd.Flag("module_path").Value.String()
+		return golang.Setup(modulePath, workingDirectory)
 	},
 }
 
@@ -56,6 +59,12 @@ func Execute() {
 }
 
 func init() {
+	var err error
+	workingDirectory, err = os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+
 	golangCmd.Flags().String("module_path", "", "The module path of the Go repository (e.g. github.com/foo/bar)")
 	rootCmd.AddCommand(golangCmd)
 	rootCmd.AddCommand(cppCmd)

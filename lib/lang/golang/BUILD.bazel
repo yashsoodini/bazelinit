@@ -11,12 +11,17 @@ go_library(
     name = "golang",
     srcs = [
         "setup.go",
-        "template.go",
         "validate.go",
+    ],
+    embedsrcs = [
+        "templates/BUILD.tmpl",
+        "templates/MODULE.bazel.tmpl",
+        "templates/go.mod.tmpl",
     ],
     importpath = "github.com/yashsoodini/bazelinit/lib/lang/golang",
     visibility = ["//visibility:public"],
     deps = [
+        "//lib/template",
         "//vendor/github.com/spf13/cobra",
         "//vendor/golang.org/x/mod/module",
     ],
