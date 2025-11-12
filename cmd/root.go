@@ -18,9 +18,8 @@ var rootCmd = &cobra.Command{
 	Use:   "bazelinit",
 	Short: "bazelinit is a CLI application for initializing code repos with bazel.",
 	Long: `
-bazelinit is a CLI application for initializing code repos with bazel. It initializes
-a git repository in the current directory, adds bazel and gazelle configuration for the
-specified language, and adds all bazel files to .gitignore.`,
+bazelinit is a CLI application for initializing code repos with bazel.
+It provides subcommands to set up Bazel for different programming languages.`,
 }
 
 // golangCmd represents the golang subcommand.
@@ -28,9 +27,9 @@ var golangCmd = &cobra.Command{
 	Use:   "go",
 	Short: "Initializes a Go repository with Bazel.",
 	Long: `
-golang is a subcommand for bazelinit that initializes a Go repository with Bazel.
-It sets up the necessary Bazel and Gazelle configurations for Go, and adds all
-Bazel-related files to .gitignore.`,
+The "go" subcommand initializes a Go repository with Bazel.
+It creates a MODULE.bazel file with the necessary Go dependencies,
+a basic BUILD file, and a go.mod file.`,
 	PreRunE: golang.ValidateCommand,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		modulePath := cmd.Flag("module_path").Value.String()
@@ -42,9 +41,8 @@ Bazel-related files to .gitignore.`,
 var cppCmd = &cobra.Command{
 	Use:   "c++",
 	Short: "Initializes a C++ repository with Bazel.",
-	Long: `c++ is a subcommand for bazelinit that initializes a C++ repository with Bazel.
-It sets up the necessary Bazel configurations for C++, and adds all
-Bazel-related files to .gitignore.`,
+	Long: `The "c++" subcommand is intended to initialize a C++ repository with Bazel.
+This feature is currently a work-in-progress.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return cpp.Setup()
 	},
