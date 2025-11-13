@@ -26,7 +26,7 @@ var golangCmd = &cobra.Command{
 	Long: `
 The "go" subcommand initializes a Go repository with Bazel.
 It creates a MODULE.bazel file with the necessary Go dependencies,
-a basic BUILD file, and a go.mod file.`,
+a basic BUILD file, a go.mod file, and configures gazelle for Go.`,
 	PreRunE: golang.ValidateCommand,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		modulePath := cmd.Flag("module_path").Value.String()
@@ -38,10 +38,12 @@ a basic BUILD file, and a go.mod file.`,
 var cppCmd = &cobra.Command{
 	Use:   "c++",
 	Short: "Initializes a C++ repository with Bazel.",
-	Long: `The "c++" subcommand is intended to initialize a C++ repository with Bazel.
-This feature is currently a work-in-progress.`,
+	Long: `
+The "c++" subcommand is intended to initialize a C++ repository with Bazel.
+It creates a MODULE.bazel file with the necessary C++ dependencies,
+a basic BUILD file, and configures gazelle for C++.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		return cpp.Setup()
+		return cpp.Setup(workingDirectory)
 	},
 }
 

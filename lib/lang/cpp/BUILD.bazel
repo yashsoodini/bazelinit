@@ -3,6 +3,14 @@ load("@rules_go//go:def.bzl", "go_library")
 go_library(
     name = "cpp",
     srcs = ["setup.go"],
+    embedsrcs = [
+        "templates/BUILD.tmpl",
+        "templates/MODULE.bazel.tmpl",
+    ],
     importpath = "github.com/yashsoodini/bazelinit/lib/lang/cpp",
     visibility = ["//visibility:public"],
+    deps = [
+        "//lib/scaffold",
+        "//lib/template",
+    ],
 )

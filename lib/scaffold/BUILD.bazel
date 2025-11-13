@@ -1,0 +1,8 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "scaffold",
+    srcs = ["scaffold.go"],
+    importpath = "github.com/yashsoodini/bazelinit/lib/scaffold",
+    visibility = ["//visibility:public"],
+)
